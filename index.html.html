@@ -603,41 +603,55 @@
 
     // Lógica Intersection Observer (Animaciones y Menú activo)
     document.addEventListener("DOMContentLoaded", () => {
-      const observerOptions = {
+      
+      // 1. Observador para el Menú de Navegación (Estricto)
+      const navObserverOptions = {
         root: null,
         rootMargin: '-20% 0px -70% 0px', 
         threshold: 0
       };
 
-      const handleIntersect = (entries) => {
+      const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.tagName.toLowerCase() === 'section') {
-              const id = entry.target.id;
-              document.querySelectorAll('.nav-btn').forEach(btn => {
-                if (btn.getAttribute('data-target') === id) {
-                  btn.classList.add('text-black', 'font-bold', 'bg-neutral-100', 'shadow-sm');
-                } else {
-                  btn.classList.remove('text-black', 'font-bold', 'bg-neutral-100', 'shadow-sm');
-                }
-              });
-            }
-            if (
-              entry.target.classList.contains('reveal') || 
-              entry.target.classList.contains('reveal-left') || 
-              entry.target.classList.contains('reveal-right') ||
-              entry.target.classList.contains('reveal-scale')
-            ) {
-              entry.target.classList.add('active');
-            }
+          if (entry.isIntersecting && entry.target.tagName.toLowerCase() === 'section') {
+            const id = entry.target.id;
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+              if (btn.getAttribute('data-target') === id) {
+                btn.classList.add('text-black', 'font-bold', 'bg-neutral-100', 'shadow-sm');
+              } else {
+                btn.classList.remove('text-black', 'font-bold', 'bg-neutral-100', 'shadow-sm');
+              }
+            });
           }
         });
+      }, navObserverOptions);
+      
+      document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
+
+      // 2. Observador para las Animaciones Visuales (Permisivo)
+      const revealObserverOptions = {
+        root: null,
+        rootMargin: '0px 0px -10% 0px', // Se activa en cuanto asoma un poco en la pantalla
+        threshold: 0
       };
 
-      const observer = new IntersectionObserver(handleIntersect, observerOptions);
-      
-      document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, revealObserverOptions);
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
+
+      // 3. Forzar animación inmediata de la primera sección (Hero) para evitar la pantalla blanca
+      setTimeout(() => {
+        document.querySelectorAll('#hero .reveal, #hero .reveal-scale, #hero .reveal-left, #hero .reveal-right').forEach(el => {
+          el.classList.add('active');
+        });
+      }, 100);
+
     });
 
     // --- BASE DE DATOS DE MODALES ---
