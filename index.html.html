@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origen Media | Hybrid Agency</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        origen: {
+                            navy: '#0A0F1C',
+                            gold: '#C5A063',
+                            light: '#F8FAFC',
+                            accent: '#2563EB',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    boxShadow: {
+                        'bento': '0 10px 30px -10px rgba(0, 0, 0, 0.05)',
+                        'bento-hover': '0 20px 40px -10px rgba(197, 160, 99, 0.15)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0A0F1C;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            user-select: none;
+        }
+        
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            will-change: backdrop-filter;
+        }
+
+        .card-clean {
+            background: #ffffff;
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: var(--tw-shadow-bento);
+        }
+        .card-clean:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--tw-shadow-bento-hover);
+            border-color: rgba(197, 160, 99, 0.4);
+        }
+        
+        .serif-title { font-family: 'Playfair Display', serif; }
+
+        @keyframes floatContinuous {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-anim-1 { animation: floatContinuous 4s ease-in-out infinite; }
+        .float-anim-2 { animation: floatContinuous 5s ease-in-out infinite 1s; }
+        .float-anim-3 { animation: floatContinuous 4.5s ease-in-out infinite 0.5s; }
+        .float-anim-4 { animation: floatContinuous 5.5s ease-in-out infinite 1.5s; }
+
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(197,160,99,0.3)); }
+            50% { filter: drop-shadow(0 0 35px rgba(197,160,99,0.7)); }
+        }
+        .pulse-glow { animation: pulseGlow 4s ease-in-out infinite; }
+
+        .scaling-card {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .scaling-card.essential:hover { transform: translateY(-20px) scale(1.02); z-index: 20; border-color: #10B981; box-shadow: 0 0 0 2px #10B981, 0 30px 60px -15px rgba(16, 185, 129, 0.3); }
+        @media (min-width: 768px) {
+            .scaling-card.strategic { transform: translateY(-1rem); }
+            .scaling-card.strategic:hover { transform: translateY(-2.5rem) scale(1.03); z-index: 20; border-color: #2563EB; box-shadow: 0 0 0 2px #2563EB, 0 35px 70px -15px rgba(37, 99, 235, 0.35); }
+        }
+        @media (max-width: 767px) {
+            .scaling-card.strategic:hover { transform: translateY(-20px) scale(1.02); border-color: #2563EB; box-shadow: 0 0 0 2px #2563EB, 0 30px 60px -15px rgba(37, 99, 235, 0.3); }
+        }
+        .scaling-card.signature:hover { transform: translateY(-20px) scale(1.02); z-index: 20; border-color: #38BDF8; box-shadow: 0 0 0 2px #38BDF8, 0 30px 60px -15px rgba(56, 189, 248, 0.4); }
+
+        #teamOverlay { will-change: transform; transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .anim-state-1 { animation: brutalCut1 4s infinite; }
+        .anim-state-2 { animation: brutalCut2 4s infinite; }
+        .anim-red-block { animation: brutalRedBlock 4s cubic-bezier(0.85, 0, 0.15, 1) infinite; transform-origin: left; }
+        .sync-glitch { animation: syncGlitch 4s infinite; }
+        
+        @keyframes brutalCut1 { 0%, 45% { opacity: 1; pointer-events: auto; } 45.1%, 100% { opacity: 0; pointer-events: none; } }
+        @keyframes brutalCut2 { 0%, 45% { opacity: 0; pointer-events: none; } 45.1%, 95% { opacity: 1; pointer-events: auto; } 95.1%, 100% { opacity: 0; pointer-events: none; } }
+        @keyframes brutalRedBlock { 0%, 45% { transform: scaleX(0) translateY(-50%); opacity: 0; } 46% { opacity: 1; transform: scaleX(0) translateY(-50%); } 52%, 90% { transform: scaleX(1) translateY(-50%); opacity: 1; } 91%, 100% { transform: scaleX(0) translateY(-50%); opacity: 0; } }
+        @keyframes syncGlitch { 0%, 44% { transform: translate(0); text-shadow: none; color: white; } 45% { transform: translate(-3px, 1px); text-shadow: 2px 0 #ef4444, -2px 0 #38BDF8; color: #ef4444; } 46% { transform: translate(3px, -1px); text-shadow: -2px 0 #ef4444, 2px 0 #38BDF8; color: white; } 47%, 100% { transform: translate(0); text-shadow: none; color: white; } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #C5A063; border-radius: 10px; }
+
+        /* Estilos del Toggle de Idioma */
+        .lang-btn { transition: all 0.3s ease; }
+        .lang-active { background: #182236; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .lang-inactive { background: transparent; color: #9CA3AF; }
+        .lang-inactive:hover { color: #182236; }
+    </style>
+</head>
+<body class="font-sans antialiased" oncontextmenu="return false;">
+
+    <!-- NAV -->
+    <nav class="fixed w-full z-40 nav-glass">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-8 h-8 rounded-full border-4 border-origen-gold border-r-transparent rotate-45 transition-transform hover:rotate-90 duration-500"></div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-widest text-origen-navy leading-none serif-title">ORIGEN</span>
+                    <span class="text-[11px] tracking-widest text-gray-500 font-bold leading-none uppercase" data-i18n="nav_agency">MEDIA</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <!-- Desktop Links -->
+                <div class="hidden lg:flex items-center gap-8 text-[11px] uppercase tracking-widest font-bold text-gray-500">
+                    <a href="#filosofia" class="hover:text-origen-navy transition-colors" data-i18n="nav_philosophy">Filosofía</a>
+                    <a href="#servicios" class="hover:text-origen-navy transition-colors" data-i18n="nav_verticals">Verticales</a>
+                    <a href="#metodologia" class="hover:text-origen-navy transition-colors" data-i18n="nav_operation">Operación</a>
+                    <button onclick="openTeamOverlay()" class="px-6 py-2.5 rounded-full border border-origen-gold text-origen-gold hover:bg-origen-gold hover:text-white transition-all duration-300 shadow-sm" data-i18n="nav_org">Estructura Operativa</button>
+                </div>
+                <!-- Language Toggle -->
+                <div class="flex items-center bg-gray-100/80 p-1 rounded-full border border-gray-200 backdrop-blur-md">
+                    <button onclick="setLang('es')" id="btn-es" class="lang-btn lang-active px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest">ES</button>
+                    <button onclick="setLang('en')" id="btn-en" class="lang-btn lang-inactive px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (ESTILO APPLE: LIMPIO, GIGANTE, SIN PÁRRAFOS LARGOS) -->
+    <header class="min-h-screen flex items-center justify-center relative bg-white overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:40px_40px] opacity-50 z-0"></div>
+        <div class="absolute top-0 right-0 w-3/4 h-full bg-gradient-to-l from-origen-light to-transparent skew-x-12 transform translate-x-40 opacity-70 pointer-events-none z-0"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10" data-aos="zoom-out" data-aos-duration="1200">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-gray-50 border border-gray-100 text-gray-500 rounded-full text-[10px] font-bold tracking-widest uppercase mb-10 shadow-sm">
+                <span class="w-2 h-2 bg-origen-gold rounded-full animate-pulse"></span>
+                <span data-i18n="hero_badge_top">Agencia Híbrida</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-[8rem] lg:text-[11rem] font-extrabold tracking-tighter text-origen-navy leading-[0.85] mb-6" data-i18n="hero_title">
+                Construimos<br>marcas.
+            </h1>
+            
+            <h2 class="text-2xl md:text-4xl lg:text-5xl font-serif text-origen-gold italic mb-12 pulse-glow" data-i18n="hero_subtitle">
+                Estructura. Narrativa. Cine.
+            </h2>
+            
+            <!-- MICROS MENÚS / BADGES FLOTANTES -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 max-w-4xl mx-auto">
+                <div class="float-anim-1 px-6 py-3 bg-white border border-gray-100 rounded-xl shadow-sm text-xs font-extrabold tracking-widest text-origen-navy uppercase flex items-center gap-3">
+                    <i class="fa-solid fa-camera-movie text-origen-gold text-lg"></i> <span data-i18n="badge_prod">Producción</span>
+                </div>
+                <div class="float-anim-2 px-6 py-3 bg-white border border-gray-100 rounded-xl shadow-sm text-xs font-extrabold tracking-widest text-origen-navy uppercase flex items-center gap-3">
+                    <i class="fa-solid fa-bullhorn text-blue-500 text-lg"></i> <span data-i18n="badge_pub">Publicidad</span>
+                </div>
+                <div class="float-anim-3 px-6 py-3 bg-white border border-gray-100 rounded-xl shadow-sm text-xs font-extrabold tracking-widest text-origen-navy uppercase flex items-center gap-3">
+                    <i class="fa-solid fa-chess-board text-green-500 text-lg"></i> <span data-i18n="badge_mkt">Marketing</span>
+                </div>
+                <div class="float-anim-4 px-6 py-3 bg-white border border-gray-100 rounded-xl shadow-sm text-xs font-extrabold tracking-widest text-origen-navy uppercase flex items-center gap-3">
+                    <i class="fa-solid fa-comments text-purple-500 text-lg"></i> <span data-i18n="badge_pr">PR</span>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                <a href="#contacto" class="px-8 py-4 bg-origen-navy text-white font-bold rounded-full hover:bg-origen-gold transition-colors duration-300 shadow-xl" data-i18n="hero_cta1">
+                    Agendar reunión
+                </a>
+                <button onclick="openTeamOverlay()" class="px-8 py-4 bg-white border border-gray-200 text-origen-navy font-bold rounded-full hover:border-origen-navy transition-all duration-300 shadow-sm">
+                    <span data-i18n="hero_cta2">Ver estructura</span> <i class="fa-solid fa-sitemap ml-2 text-origen-gold"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- DIFERENCIADOR CLAVE -->
+    <section class="py-24 bg-origen-navy relative overflow-hidden flex items-center justify-center border-y border-origen-gold/20">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-origen-gold via-transparent to-transparent pointer-events-none"></div>
+        <div class="container mx-auto px-6 text-center relative z-10" data-aos="fade-up">
+            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter mb-6 uppercase" data-i18n="diff_title">
+                No improvisamos.
+            </h2>
+            <p class="text-xl md:text-3xl text-gray-400 font-serif italic max-w-4xl mx-auto leading-relaxed" data-i18n="diff_desc">
+                "El talento aislado no escala. <br class="hidden md:block">
+                <span class="text-origen-gold not-italic font-bold">Cada proyecto está respaldado por un equipo jerárquico real.</span>"
+            </p>
+        </div>
+    </section>
+
+    <!-- FILOSOFÍA / MANIFIESTO HAROLD -->
+    <section id="filosofia" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+            
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-origen-gold font-bold uppercase tracking-widest text-xs mb-2 block" data-i18n="philo_tag">Nuestra Visión</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-origen-navy mb-6 serif-title" data-i18n="philo_h2">Una marca es un activo estratégico.</h2>
+                <p class="text-xl text-gray-600 font-medium max-w-3xl mx-auto leading-relaxed" data-i18n="philo_sub">
+                    No es solo comunicación. No es solo visibilidad. Es reputación, percepción, narrativa y posicionamiento sostenido.
+                </p>
+            </div>
+
+            <div class="bg-origen-light p-8 md:p-12 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden" data-aos="fade-up">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-origen-gold/5 rounded-bl-full"></div>
+                <i class="fa-solid fa-quote-left text-4xl text-origen-gold/30 mb-6 block"></i>
+                
+                <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed font-serif">
+                    <p class="text-2xl text-origen-navy font-bold font-sans" data-i18n="philo_p1">
+                        "En Origen Media creemos que la publicidad perdió el rumbo cuando dejó de escuchar."
+                    </p>
+                    <p data-i18n="philo_p2">
+                        No nacimos para correr detrás de deadlines artificiales o reportes que no representan a nadie. Aquí, las cosas salen cuando tienen sentido. Medimos el trabajo por su impacto humano, no por alcance vacío. Analizamos conversaciones reales, comentarios con contexto, historias de usuarios que sienten y cuestionan. <strong>No vemos “engagement”, vemos personas.</strong>
+                    </p>
+                    <div class="my-8 pl-6 border-l-4 border-origen-gold italic" data-i18n="philo_quote">
+                        Origen Media existe para regresar a la esencia: a la razón por la que una marca fue creada, al problema que vino a resolver y a la solución que realmente mejora la vida de alguien.
+                    </div>
+                    <p class="text-xl text-origen-navy font-bold font-sans" data-i18n="philo_p3">
+                        Regresar al origen no es retroceder. Es avanzar con conciencia.
+                    </p>
+                </div>
+                
+                <div class="mt-10 flex items-center gap-4 pt-6 border-t border-gray-200 relative z-10">
+                    <div class="w-14 h-14 bg-origen-navy text-white rounded-full flex items-center justify-center text-xl serif-title">H</div>
+                    <div>
+                        <h4 class="font-bold text-origen-navy text-lg leading-tight">Harold Huerta</h4>
+                        <span class="text-xs text-origen-gold uppercase tracking-widest font-bold" data-i18n="harold_role">Fundador Origen Media · CEO & Director</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-24 bg-origen-light border-y border-gray-100 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <span class="text-origen-gold font-bold uppercase tracking-widest text-xs mb-2 block" data-i18n="serv_tag">Arquitectura de Marca</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-origen-navy serif-title" data-i18n="serv_title">Nuestras 4 Verticales</h2>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto font-medium text-lg" data-i18n="serv_desc">Cada área cumple un rol específico y complementario. Juntas, sostienen tu reputación a largo plazo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- 1. PRODUCCIÓN -->
+                <div class="card-pro p-8 lg:p-10 border-t-4 border-t-origen-navy bg-origen-navy text-white md:col-span-2" data-aos="fade-up">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-white/10">
+                        <div class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center text-origen-gold text-2xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-camera-movie"></i></div>
+                        <div>
+                            <span class="text-xs text-origen-gold font-bold uppercase tracking-widest block mb-1">Vertical 01</span>
+                            <h3 class="text-3xl font-bold text-white serif-title" data-i18n="prod_title">Producción</h3>
+                        </div>
+                    </div>
+                    <p class="text-origen-gold font-bold text-lg mb-2" data-i18n="prod_sub">Ejecución audiovisual con estándar cinematográfico.</p>
+                    <p class="text-sm text-gray-300 mb-8 leading-relaxed max-w-3xl" data-i18n="prod_desc">Estructura interna y especializada. No dependemos exclusivamente de terceros; controlamos la visión creativa y la ejecución operativa de cada proyecto visual.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-auto">
+                        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+                            <h4 class="text-white font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-mobile-screen text-origen-gold"></i> Marketing Video Content
+                            </h4>
+                            <p class="text-xs text-gray-400 mb-3" data-i18n="prod_v_desc">Producción premium para distribución digital.</p>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Brand Films & Hero Videos</li>
+                                <li>• Social Media Content</li>
+                                <li>• Mini documentales y Fotografía</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+                            <h4 class="text-white font-bold mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-film text-origen-gold"></i> Cinema Producer
+                            </h4>
+                            <p class="text-xs text-gray-400 mb-3" data-i18n="prod_c_desc">Producción cinematográfica de gran formato.</p>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• Comerciales de alto formato</li>
+                                <li data-i18n="prod_c_l2">• Streaming (Netflix, Prime Video)</li>
+                                <li data-i18n="prod_c_l3">• Exhibición en salas (Cinépolis, Cinemex)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. PUBLICIDAD -->
+                <div class="card-pro p-8 lg:p-10 border-t-4 border-t-blue-500" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+                        <div class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 text-2xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-bullhorn"></i></div>
+                        <div>
+                            <span class="text-xs text-gray-400 font-bold uppercase tracking-widest block mb-1">Vertical 02</span>
+                            <h3 class="text-3xl font-bold text-origen-navy serif-title" data-i18n="pub_title">Publicidad</h3>
+                        </div>
+                    </div>
+                    <p class="text-origen-navy font-bold text-lg mb-2" data-i18n="pub_sub">Reconocimiento y posicionamiento.</p>
+                    <p class="text-sm text-gray-600 mb-6 leading-relaxed" data-i18n="pub_desc">El motor del reconocimiento. Proyecta la marca al espacio público, la hace visible, deseable y memorable.</p>
+                    <ul class="cultural-role-list text-sm text-gray-600 space-y-2 mt-auto">
+                        <li data-i18n="pub_l1">Desarrollo de campañas creativas de alto impacto.</li>
+                        <li data-i18n="pub_l2">Dirección creativa integral.</li>
+                        <li data-i18n="pub_l3">Campañas ATL, BTL y digitales.</li>
+                        <li data-i18n="pub_l4">Estrategias de pauta publicitaria.</li>
+                    </ul>
+                    <div class="mt-8 pt-4 border-t border-gray-100 text-xs font-bold text-origen-gold" data-i18n="pub_foot">👉 No improvisamos creatividad. La estructuramos.</div>
+                </div>
+
+                <!-- 3. MARKETING ESTRATÉGICO -->
+                <div class="card-pro p-8 lg:p-10 border-t-4 border-t-green-500" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+                        <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center text-green-500 text-2xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-chess-board"></i></div>
+                        <div>
+                            <span class="text-xs text-gray-400 font-bold uppercase tracking-widest block mb-1">Vertical 03</span>
+                            <h3 class="text-3xl font-bold text-origen-navy serif-title" data-i18n="mkt_title">Marketing Estratégico</h3>
+                        </div>
+                    </div>
+                    <p class="text-origen-navy font-bold text-lg mb-2" data-i18n="mkt_sub">Precisión, segmentación y adaptación.</p>
+                    <p class="text-sm text-gray-600 mb-6 leading-relaxed" data-i18n="mkt_desc">Profundamente analítico. Entiende a quién va dirigido el producto y qué problema resuelve. Conecta con la audiencia correcta.</p>
+                    <ul class="cultural-role-list text-sm text-gray-600 space-y-2 mt-auto">
+                        <li data-i18n="mkt_l1">Brand Strategy y definición de audiencias.</li>
+                        <li data-i18n="mkt_l2">Campañas 360° e Influencer Strategy.</li>
+                        <li data-i18n="mkt_l3">Performance & Paid Media.</li>
+                        <li data-i18n="mkt_l4">Supervisión de funnel completo.</li>
+                    </ul>
+                    <div class="mt-8 pt-4 border-t border-gray-100 text-xs font-bold text-origen-gold" data-i18n="mkt_foot">👉 Es flexible, pero siempre estratégico.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EL ESCENARIO DE NATALIA: MANIFIESTO PR Y ANIMACIONES FLOTANTES -->
+    <section class="py-24 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-7xl mx-auto">
+                <!-- Left: Text & PR Services -->
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-500 text-xl shadow-sm"><i class="fa-solid fa-comments"></i></div>
+                        <span class="text-purple-600 font-bold uppercase tracking-widest text-xs block" data-i18n="pr_tag">Vertical 04: Relaciones Públicas</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-origen-navy mb-6 serif-title leading-tight" data-i18n="pr_title">Reputación y relaciones sostenidas.</h2>
+                    
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8" data-i18n="pr_desc">
+                        No se trata de colocar una nota, sino de sostener una conversación. Construimos vínculos duraderos con medios, líderes de opinión y audiencias clave.
+                    </p>
+                    
+                    <ul class="space-y-4 text-sm text-gray-600 font-medium mb-10 bg-origen-light p-6 rounded-2xl border border-gray-100">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-purple-500 mt-0.5 text-lg"></i> <strong data-i18n="pr_l1">Media Relations & Earned Media Strategy.</strong></li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-purple-500 mt-0.5 text-lg"></i> <strong data-i18n="pr_l2">Gestión de crisis y vocería institucional.</strong></li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-purple-500 mt-0.5 text-lg"></i> <strong data-i18n="pr_l3">Lanzamientos, Media Tours e Influencer Relations.</strong></li>
+                    </ul>
+
+                    <div class="p-6 bg-purple-50/50 rounded-xl border border-purple-100">
+                        <p class="text-origen-navy font-bold text-sm italic mb-4" data-i18n="pr_quote">
+                            "Las relaciones públicas, cuando se hacen bien, no buscan exposición: buscan entendimiento. Trabajamos desde la empatía, el criterio y el respeto por las personas. Eso es lo que defendemos: comunicar con sentido y construir reputación desde la verdad."
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold shadow-sm">N</div>
+                            <div>
+                                <h4 class="font-bold text-origen-navy text-sm leading-tight">Natalia Guzmán</h4>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wider font-bold" data-i18n="natalia_role">Co-fundadora · VP & Dir. PR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Animated Grid -->
+                <div class="lg:w-1/2 grid grid-cols-2 gap-4 w-full" data-aos="fade-left">
+                    <div class="card-clean float-anim-1 p-8 text-center border-t-4 border-transparent hover:border-red-400 group">
+                        <i class="fa-regular fa-heart text-4xl text-red-400 mb-4 transition-transform duration-300 group-hover:scale-110"></i>
+                        <h4 class="font-bold text-origen-navy text-lg" data-i18n="pr_k1">Empatía</h4>
+                    </div>
+                    <div class="card-clean float-anim-2 p-8 text-center border-t-4 border-transparent hover:border-origen-gold group">
+                        <i class="fa-solid fa-ear-listen text-4xl text-origen-gold mb-4 transition-transform duration-300 group-hover:scale-110"></i>
+                        <h4 class="font-bold text-origen-navy text-lg" data-i18n="pr_k2">Escucha</h4>
+                    </div>
+                    <div class="card-clean float-anim-3 p-8 text-center border-t-4 border-transparent hover:border-blue-500 group">
+                        <i class="fa-regular fa-handshake text-4xl text-blue-500 mb-4 transition-transform duration-300 group-hover:scale-110"></i>
+                        <h4 class="font-bold text-origen-navy text-lg" data-i18n="pr_k3">Vínculo</h4>
+                    </div>
+                    <div class="card-clean float-anim-4 p-8 text-center border-t-4 border-transparent hover:border-origen-navy group">
+                        <i class="fa-regular fa-comment-dots text-4xl text-origen-navy mb-4 transition-transform duration-300 group-hover:scale-110"></i>
+                        <h4 class="font-bold text-origen-navy text-lg" data-i18n="pr_k4">Diálogo</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METODOLOGÍA (7 PASOS) -->
+    <section id="metodologia" class="py-24 bg-origen-light border-y border-gray-100 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-origen-gold font-bold uppercase tracking-widest text-xs mb-2 block" data-i18n="meth_tag">Proceso</span>
+                <h2 class="text-4xl font-bold text-origen-navy serif-title" data-i18n="meth_title">Modelo Operativo</h2>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto" data-i18n="meth_desc">Cada proyecto sigue un modelo estructurado. El cliente no contrata a una persona, contrata una estructura completa.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 max-w-6xl mx-auto">
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(25%-12px)] card-pro p-6 border-t-4 border-t-origen-gold" data-aos="fade-up">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #C5A063;">01</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s1_t">Diagnóstico</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s1_d">Análisis estratégico profundo.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(25%-12px)] card-pro p-6 border-t-4 border-t-origen-navy" data-aos="fade-up" data-aos-delay="50">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #182236;">02</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s2_t">Concepto</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s2_d">Desarrollo narrativo.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(25%-12px)] card-pro p-6 border-t-4 border-t-origen-gold" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #C5A063;">03</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s3_t">Verticales</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s3_d">Definición de áreas activadas.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(25%-12px)] card-pro p-6 border-t-4 border-t-origen-navy" data-aos="fade-up" data-aos-delay="150">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #182236;">04</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s4_t">Equipo</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s4_d">Asignación jerárquica.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] card-pro p-6 border-t-4 border-t-origen-gold" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #C5A063;">05</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s5_t">Planeación</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s5_d">Estructura operativa.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] card-pro p-6 border-t-4 border-t-origen-navy" data-aos="fade-up" data-aos-delay="250">
+                    <div class="text-4xl font-black text-gray-200 mb-2 font-serif" style="-webkit-text-stroke: 1px #182236;">06</div>
+                    <h4 class="font-bold text-origen-navy text-sm mb-2" data-i18n="s6_t">Ejecución</h4>
+                    <p class="text-xs text-gray-500" data-i18n="s6_d">Producción y supervisión.</p>
+                </div>
+                <div class="w-full sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] card-pro p-6 border-t-4 border-t-origen-gold bg-origen-navy text-white" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-black text-white/10 mb-2 font-serif" style="-webkit-text-stroke: 1px #C5A063;">07</div>
+                    <h4 class="font-bold text-origen-gold text-sm mb-2" data-i18n="s7_t">Medición</h4>
+                    <p class="text-xs text-gray-300" data-i18n="s7_d">Optimización de resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALIADOS / PARTNERS -->
+    <section id="partners" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <span class="text-gray-400 font-bold uppercase tracking-widest text-[10px] mb-8 block" data-i18n="partners_tag">Aliados estratégicos de producción y distribución</span>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="text-2xl md:text-4xl font-black tracking-tighter text-[#E50914] uppercase font-sans">Netflix</div>
+                <div class="text-xl md:text-3xl font-bold tracking-tight text-[#00A8E1] font-sans">prime video</div>
+                <div class="text-2xl md:text-4xl font-extrabold tracking-tighter text-[#003893] uppercase font-sans">Cinépolis</div>
+                <div class="text-2xl md:text-4xl font-black tracking-tighter text-[#D4112E] italic uppercase font-sans">Cinemex</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAQUETES (Impacto visual con resplandores) -->
+    <section class="py-32 bg-origen-light border-y border-gray-100 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-origen-gold font-bold uppercase tracking-widest text-xs mb-2 block" data-i18n="pack_tag">Arquitectura de Inversión</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-origen-navy serif-title" data-i18n="pack_title">Planes de Escalamiento</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+                <!-- ESSENTIAL -->
+                <div class="card-pro scaling-card essential p-10 border-t-4 border-t-gray-300 bg-white" data-aos="fade-up" data-aos-delay="0">
+                    <h3 class="text-2xl font-bold text-origen-navy mb-2 serif-title">Essential</h3>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-8" data-i18n="pack1_sub">Mantenimiento</p>
+                    <ul class="space-y-4 text-sm text-gray-600 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-navy"></i> <span data-i18n="pack1_1"><strong>12</strong> Reels High-End</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-navy"></i> <span data-i18n="pack1_2"><strong>20</strong> Stories Estratégicas</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-gray-400"></i> <span data-i18n="pack1_3">Calendario Editorial</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-gray-400"></i> <span data-i18n="pack1_4">Publicación Programada</span></li>
+                    </ul>
+                </div>
+
+                <!-- STRATEGIC -->
+                <div class="card-pro scaling-card strategic p-10 border-2 border-origen-gold relative z-10 bg-white shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 inset-x-0 h-1 bg-origen-gold"></div>
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-origen-gold text-white text-[10px] font-bold px-4 py-1 uppercase tracking-widest rounded-full shadow-md" data-i18n="pack_rec">Recomendado</div>
+                    <h3 class="text-3xl font-bold text-origen-navy mb-2 serif-title">Strategic</h3>
+                    <p class="text-xs text-origen-gold uppercase tracking-widest mb-8 font-bold" data-i18n="pack2_sub">Crecimiento Agresivo</p>
+                    <ul class="space-y-4 text-sm text-gray-600 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack2_1"><strong>25</strong> Reels (Cinema Look)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack2_2"><strong>40</strong> Stories (Retención Diaria)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-navy"></i> <span data-i18n="pack2_3">Community Management</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-navy"></i> <span data-i18n="pack2_4">Calendario Editorial</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-navy"></i> <span data-i18n="pack2_5">Publicación Programada</span></li>
+                    </ul>
+                </div>
+
+                <!-- SIGNATURE -->
+                <div class="card-pro scaling-card signature p-10 bg-origen-navy text-white border-none" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-2xl font-bold text-white mb-2 serif-title">Signature</h3>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-8" data-i18n="pack3_sub">Autoridad de Mercado</p>
+                    <ul class="space-y-4 text-sm text-gray-300 font-medium">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack3_1"><strong>40</strong> Reels (Cinema Look)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack3_2"><strong>60</strong> Stories (Retención)</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack3_3"><strong>2</strong> Videos de YouTube</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-origen-gold"></i> <span data-i18n="pack3_4">Shooting Mensual en Locación</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-white"></i> <span data-i18n="pack3_5">Manejo de Crisis PR</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-white"></i> <span data-i18n="pack3_6">Social Listening Activo</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERLAY: ESTRUCTURA -->
+    <div id="teamOverlay" class="fixed inset-0 z-50 bg-white/95 backdrop-blur-xl w-full h-full transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col overflow-hidden">
+        <div class="container mx-auto px-6 py-6 md:py-8 flex justify-between items-start md:items-center border-b border-gray-100">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-3 mb-1">
+                    <div class="w-6 h-6 md:w-8 md:h-8 rounded-full border-[3px] md:border-4 border-origen-gold border-r-transparent rotate-45"></div>
+                    <h2 class="text-2xl md:text-4xl font-black text-origen-navy tracking-widest uppercase serif-title">ORIGEN MEDIA</h2>
+                </div>
+                <span class="text-[9px] md:text-xs text-gray-500 font-bold tracking-widest uppercase mt-2 md:mt-1">Hybrid Advertising • Marketing • Public Relations • Cinema Production</span>
+            </div>
+            <button onclick="closeTeamOverlay()" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-100 flex items-center justify-center text-origen-navy hover:bg-origen-navy hover:text-white transition-all text-lg md:text-xl flex-shrink-0 ml-4"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto pb-20 pt-10">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl font-bold text-origen-navy serif-title mb-3" data-i18n="org_title">Estructura Operativa</h3>
+                    <p class="text-gray-500 mt-2" data-i18n="org_desc">Origen Media no opera con estructuras mínimas. Cada área cuenta con niveles jerárquicos.</p>
+                    <p class="text-xs text-origen-gold font-bold uppercase mt-4 animate-bounce" data-i18n="org_hint">Selecciona una división para ver arquitectura</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10 relative">
+                     <div onclick="openModal('harold')" class="team-card group bg-origen-navy p-8 rounded-2xl shadow-xl border-2 border-transparent hover:border-origen-gold relative overflow-hidden cursor-pointer flex flex-col items-center justify-center">
+                         <div class="w-20 h-20 mx-auto bg-origen-gold rounded-full flex items-center justify-center text-white text-3xl mb-4"><i class="fa-solid fa-crown"></i></div>
+                         <h4 class="font-bold text-white text-xl text-center">Harold Huerta</h4>
+                         <span class="text-xs text-origen-gold uppercase tracking-wider block mt-1 text-center font-bold" data-i18n="org_h_role">Fundador · CEO / CCO</span>
+                     </div>
+                     <div onclick="openModal('natalia')" class="team-card group bg-origen-navy p-8 rounded-2xl shadow-xl border-2 border-transparent hover:border-purple-400 relative overflow-hidden cursor-pointer flex flex-col items-center justify-center">
+                         <div class="w-20 h-20 mx-auto bg-purple-500 rounded-full flex items-center justify-center text-white text-3xl mb-4"><i class="fa-regular fa-star"></i></div>
+                         <h4 class="font-bold text-white text-xl text-center">Natalia Guzmán</h4>
+                         <span class="text-xs text-purple-300 uppercase tracking-wider block mt-1 text-center font-bold" data-i18n="org_n_role">Co-fundadora · VP & Dir. PR</span>
+                     </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto border-t pt-8 border-gray-200">
+                     <div onclick="openModal('produccion')" class="team-card group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-origen-gold relative overflow-hidden cursor-pointer h-full flex flex-col items-center justify-center">
+                         <div class="w-16 h-16 mx-auto bg-origen-gold/10 rounded-full flex items-center justify-center text-origen-gold text-2xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-camera-movie"></i></div>
+                         <h4 class="font-bold text-origen-navy text-center text-lg" data-i18n="org_prod">Área de Producción</h4>
+                         <span class="text-[10px] text-gray-500 uppercase tracking-widest block mt-2 text-center font-bold bg-gray-50 px-3 py-1 rounded-full" data-i18n="org_btn">Ver Jerarquía</span>
+                     </div>
+                     <div onclick="openModal('publicidad')" class="team-card group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-blue-500 relative overflow-hidden cursor-pointer h-full flex flex-col items-center justify-center">
+                         <div class="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-500 text-2xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-bullhorn"></i></div>
+                         <h4 class="font-bold text-origen-navy text-center text-lg" data-i18n="org_pub">Área de Publicidad</h4>
+                         <span class="text-[10px] text-gray-500 uppercase tracking-widest block mt-2 text-center font-bold bg-gray-50 px-3 py-1 rounded-full" data-i18n="org_btn">Ver Jerarquía</span>
+                     </div>
+                     <div onclick="openModal('marketing')" class="team-card group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-green-500 relative overflow-hidden cursor-pointer h-full flex flex-col items-center justify-center">
+                         <div class="w-16 h-16 mx-auto bg-green-50 rounded-full flex items-center justify-center text-green-500 text-2xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-chess-board"></i></div>
+                         <h4 class="font-bold text-origen-navy text-center text-lg" data-i18n="org_mkt">Área de Marketing</h4>
+                         <span class="text-[10px] text-gray-500 uppercase tracking-widest block mt-2 text-center font-bold bg-gray-50 px-3 py-1 rounded-full" data-i18n="org_btn">Ver Jerarquía</span>
+                     </div>
+                     <div onclick="openModal('pr')" class="team-card group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-purple-500 relative overflow-hidden cursor-pointer h-full flex flex-col items-center justify-center">
+                         <div class="w-16 h-16 mx-auto bg-purple-50 rounded-full flex items-center justify-center text-purple-500 text-2xl mb-4 group-hover:scale-110 transition-transform"><i class="fa-solid fa-comments"></i></div>
+                         <h4 class="font-bold text-origen-navy text-center text-lg" data-i18n="org_pr">Área de Relaciones P.</h4>
+                         <span class="text-[10px] text-gray-500 uppercase tracking-widest block mt-2 text-center font-bold bg-gray-50 px-3 py-1 rounded-full" data-i18n="org_btn">Ver Jerarquía</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="teamModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden transform transition-all scale-95 opacity-0 flex flex-col" id="modalContent">
+            <div class="bg-origen-navy p-8 md:p-10 relative overflow-hidden flex-shrink-0">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-origen-gold/20 rounded-full blur-3xl transform translate-x-10 -translate-y-10"></div>
+                <button onclick="closeModal()" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                <div class="relative z-10">
+                    <span id="modalRole" class="text-origen-gold text-xs font-bold uppercase tracking-widest mb-2 block">Role</span>
+                    <h3 id="modalName" class="text-3xl md:text-4xl font-bold text-white serif-title">Name</h3>
+                </div>
+            </div>
+            <div class="p-8 md:p-10 bg-white overflow-y-auto flex-grow max-h-[60vh]">
+                <div class="mb-8">
+                    <h4 class="text-origen-navy font-bold text-lg mb-4 flex items-center gap-2 border-b border-gray-100 pb-2"><i class="fa-solid fa-sitemap text-origen-gold"></i> <span data-i18n="modal_arch">Arquitectura Funcional</span></h4>
+                    <ul id="modalTasks" class="space-y-4 text-sm text-gray-600 cultural-role-list"></ul>
+                </div>
+                <div class="mt-6 border-t border-gray-100 pt-6">
+                     <p id="modalSlogan" class="text-origen-navy font-bold italic text-center text-sm md:text-base"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER ANIMADO -->
+    <section class="bg-origen-navy text-white py-24 md:py-32 overflow-hidden relative" id="contacto">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-16">
+                <div class="w-full lg:w-1/2 h-48 md:h-64 relative font-black uppercase leading-[0.85] tracking-tighter text-[4.5rem] md:text-[7rem] lg:text-[8.5rem]">
+                    <div class="absolute inset-0 flex flex-col justify-center anim-state-1">
+                        <div class="text-white">ORIGEN</div>
+                        <div class="text-origen-gold">MEDIA</div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col justify-center anim-state-2 opacity-0">
+                        <div class="text-white">GET</div>
+                        <div class="relative w-max inline-block my-2">
+                            <span class="relative z-10 text-white select-none">SHIT</span>
+                            <div class="absolute top-1/2 left-[-2%] -translate-y-1/2 h-[85%] w-[104%] bg-[#ef4444] anim-red-block z-20"></div>
+                        </div>
+                        <div class="text-white">DONE</div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-1/2 relative lg:pl-20 mt-12 lg:mt-0">
+                    <div class="absolute left-0 top-0 w-[1px] h-full bg-white/10 hidden lg:block overflow-hidden">
+                        <div class="w-full h-1/3 bg-gradient-to-b from-transparent via-origen-gold to-transparent anim-scanline"></div>
+                    </div>
+
+                    <h3 class="text-4xl md:text-5xl font-black tracking-tighter mb-2 uppercase sync-glitch">
+                        Harold Huerta<span class="animate-pulse text-origen-gold">_</span>
+                    </h3>
+                    <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-12" data-i18n="foot_role">CEO & Director Creativo</p>
+                    
+                    <div class="space-y-6 text-xl md:text-2xl font-medium text-gray-300 tracking-tight font-serif">
+                        <a href="https://wa.me/525521073098" target="_blank" class="hover:text-white transition-colors cursor-pointer flex items-center gap-6 group w-max contact-anim-1">
+                            <div class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-origen-gold group-hover:border-origen-gold transition-all duration-300">
+                                <i class="fa-brands fa-whatsapp text-origen-gold group-hover:text-white transition-colors duration-300"></i> 
+                            </div>
+                            <span class="font-sans">55 2107 3098</span>
+                        </a>
+                        <a href="mailto:contacto@origenmedia.com" class="hover:text-white transition-colors cursor-pointer flex items-center gap-6 group w-max contact-anim-2">
+                            <div class="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-origen-gold group-hover:border-origen-gold transition-all duration-300">
+                                <i class="fa-regular fa-envelope text-origen-gold group-hover:text-white transition-colors duration-300"></i> 
+                            </div>
+                            <span class="font-sans">contacto@origenmedia.com</span>
+                        </a>
+                        <div class="flex items-center gap-6 w-max opacity-80 mt-4 pt-6 border-t border-white/10">
+                            <div class="w-14 h-14 flex items-center justify-center">
+                                <i class="fa-solid fa-location-dot text-gray-500 text-xl"></i> 
+                            </div>
+                            <span class="tracking-widest text-sm font-sans uppercase text-gray-400 font-bold" data-i18n="foot_loc">Ciudad de México</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-bold uppercase tracking-widest relative z-20">
+                <div class="mb-4 md:mb-0 text-white">Origen Media</div>
+                <div>&copy; 2026. <span data-i18n="foot_copy">Todos los derechos reservados.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts y Sistema de Traducción -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 800 });
+
+        // --- DICCIONARIO DE TRADUCCIÓN ---
+        const i18n = {
+            es: {
+                nav_agency: "MEDIA",
+                nav_philosophy: "Filosofía",
+                nav_verticals: "Verticales",
+                nav_operation: "Operación",
+                nav_org: "Estructura Operativa",
+                hero_badge_top: "Agencia Híbrida",
+                badge_prod: "Producción",
+                badge_pub: "Publicidad",
+                badge_mkt: "Marketing",
+                badge_pr: "PR",
+                hero_title: "Construimos<br>marcas.",
+                hero_subtitle: "Estructura. Narrativa. Cine.",
+                hero_cta1: "Agendar reunión",
+                hero_cta2: "Ver estructura",
+                diff_title: "No improvisamos.",
+                diff_desc: "\"El talento aislado no escala. <br class='hidden md:block'><span class='text-origen-gold not-italic font-bold'>Cada proyecto está respaldado por un equipo jerárquico real.</span>\"",
+                philo_tag: "Nuestra Visión",
+                philo_h2: "Una marca es un activo estratégico.",
+                philo_sub: "No es solo comunicación. No es solo visibilidad. Es reputación, percepción, narrativa y posicionamiento sostenido.",
+                philo_p1: "\"En Origen Media creemos que la publicidad perdió el rumbo cuando dejó de escuchar.\"",
+                philo_p2: "No nacimos para correr detrás de deadlines artificiales o reportes que no representan a nadie. Aquí, las cosas salen cuando tienen sentido. Medimos el trabajo por su impacto humano, no por alcance vacío. Analizamos conversaciones reales, comentarios con contexto, historias de usuarios que sienten y cuestionan. <strong>No vemos “engagement”, vemos personas.</strong>",
+                philo_quote: "Origen Media existe para regresar a la esencia: a la razón por la que una marca fue creada, al problema que vino a resolver y a la solución que realmente mejora la vida de alguien.",
+                philo_p3: "Regresar al origen no es retroceder. Es avanzar con conciencia.",
+                harold_role: "Fundador Origen Media · CEO & Director",
+                serv_tag: "Arquitectura de Marca",
+                serv_title: "Nuestras 4 Verticales",
+                serv_desc: "Cada área cumple un rol específico y complementario. Juntas, sostienen tu reputación a largo plazo.",
+                prod_title: "Producción",
+                prod_sub: "Ejecución audiovisual con estándar cinematográfico.",
+                prod_desc: "Estructura interna y especializada. No dependemos exclusivamente de terceros; controlamos la visión creativa y la ejecución operativa de cada proyecto visual.",
+                prod_v_desc: "Producción premium para distribución digital.",
+                prod_c_desc: "Producción cinematográfica de gran formato.",
+                prod_c_l2: "• Streaming (Netflix, Prime Video)",
+                prod_c_l3: "• Exhibición en salas (Cinépolis, Cinemex)",
+                pub_title: "Publicidad",
+                pub_sub: "Reconocimiento y posicionamiento.",
+                pub_desc: "El motor del reconocimiento. Proyecta la marca al espacio público, la hace visible, deseable y memorable.",
+                pub_l1: "Desarrollo de campañas creativas de alto impacto.",
+                pub_l2: "Dirección creativa integral.",
+                pub_l3: "Campañas ATL, BTL y digitales.",
+                pub_l4: "Estrategias de pauta publicitaria.",
+                pub_foot: "👉 No improvisamos creatividad. La estructuramos.",
+                mkt_title: "Marketing Estratégico",
+                mkt_sub: "Precisión, segmentación y adaptación.",
+                mkt_desc: "Profundamente analítico. Entiende a quién va dirigido el producto y qué problema resuelve. Conecta con la audiencia correcta.",
+                mkt_l1: "Brand Strategy y definición de audiencias.",
+                mkt_l2: "Campañas 360° e Influencer Strategy.",
+                mkt_l3: "Performance & Paid Media.",
+                mkt_l4: "Supervisión de funnel completo.",
+                mkt_foot: "👉 Es flexible, pero siempre estratégico.",
+                pr_tag: "Vertical 04: Relaciones Públicas",
+                pr_title: "Reputación y relaciones sostenidas.",
+                pr_desc: "No se trata de colocar una nota, sino de sostener una conversación. Construimos vínculos duraderos con medios, líderes de opinión y audiencias clave.",
+                pr_l1: "Media Relations & Earned Media Strategy.",
+                pr_l2: "Gestión de crisis y vocería institucional.",
+                pr_l3: "Lanzamientos, Media Tours e Influencer Relations.",
+                pr_quote: "\"Las relaciones públicas, cuando se hacen bien, no buscan exposición: buscan entendimiento. Trabajamos desde la empatía, el criterio y el respeto por las personas. Eso es lo que defendemos: comunicar con sentido y construir reputación desde la verdad.\"",
+                natalia_role: "Co-fundadora · VP & Dir. PR",
+                pr_k1: "Empatía",
+                pr_k2: "Escucha",
+                pr_k3: "Vínculo",
+                pr_k4: "Diálogo",
+                meth_tag: "Proceso",
+                meth_title: "Modelo Operativo",
+                meth_desc: "Cada proyecto sigue un modelo estructurado. El cliente no contrata a una persona, contrata una estructura completa.",
+                s1_t: "Diagnóstico", s1_d: "Análisis estratégico profundo.",
+                s2_t: "Concepto", s2_d: "Desarrollo narrativo.",
+                s3_t: "Verticales", s3_d: "Definición de áreas activadas.",
+                s4_t: "Equipo", s4_d: "Asignación jerárquica.",
+                s5_t: "Planeación", s5_d: "Estructura operativa.",
+                s6_t: "Ejecución", s6_d: "Producción y supervisión.",
+                s7_t: "Medición", s7_d: "Optimización de resultados.",
+                partners_tag: "Aliados estratégicos de producción y distribución",
+                pack_tag: "Arquitectura de Inversión",
+                pack_title: "Planes de Escalamiento",
+                pack1_sub: "Mantenimiento",
+                pack1_1: "<strong>12</strong> Reels High-End", pack1_2: "<strong>20</strong> Stories Estratégicas", pack1_3: "Calendario Editorial", pack1_4: "Publicación Programada",
+                pack_rec: "Recomendado",
+                pack2_sub: "Crecimiento Agresivo",
+                pack2_1: "<strong>25</strong> Reels (Cinema Look)", pack2_2: "<strong>40</strong> Stories (Retención Diaria)", pack2_3: "Community Management", pack2_4: "Calendario Editorial", pack2_5: "Publicación Programada",
+                pack3_sub: "Autoridad de Mercado",
+                pack3_1: "<strong>40</strong> Reels (Cinema Look)", pack3_2: "<strong>60</strong> Stories (Retención)", pack3_3: "<strong>2</strong> Videos de YouTube", pack3_4: "Shooting Mensual en Locación", pack3_5: "Manejo de Crisis PR", pack3_6: "Social Listening Activo",
+                org_title: "Estructura Operativa",
+                org_desc: "Origen Media no opera con estructuras mínimas. Cada área cuenta con niveles jerárquicos.",
+                org_hint: "Selecciona una división para ver arquitectura",
+                org_h_role: "Fundador · CEO / CCO",
+                org_n_role: "Co-fundadora · VP & Dir. PR",
+                org_prod: "Área de Producción",
+                org_pub: "Área de Publicidad",
+                org_mkt: "Área de Marketing",
+                org_pr: "Área de Relaciones P.",
+                org_btn: "Ver Jerarquía",
+                modal_arch: "Arquitectura Funcional",
+                foot_role: "CEO & Director Creativo",
+                foot_loc: "Ciudad de México",
+                foot_copy: "Todos los derechos reservados."
+            },
+            en: {
+                nav_agency: "AGENCY",
+                nav_philosophy: "Philosophy",
+                nav_verticals: "Verticals",
+                nav_operation: "Operations",
+                nav_org: "Org Chart",
+                hero_badge_top: "Hybrid Agency",
+                badge_prod: "Production",
+                badge_pub: "Advertising",
+                badge_mkt: "Marketing",
+                badge_pr: "PR",
+                hero_title: "We build<br>brands.",
+                hero_subtitle: "Structure. Narrative. Cinema.",
+                hero_cta1: "Schedule Call",
+                hero_cta2: "View structure",
+                diff_title: "We don't improvise.",
+                diff_desc: "\"Isolated talent doesn't scale. <br class='hidden md:block'><span class='text-origen-gold not-italic font-bold'>Every project is backed by a real hierarchical team.</span>\"",
+                philo_tag: "Our Vision",
+                philo_h2: "A brand is a strategic asset.",
+                philo_sub: "It's not just communication. It's not just visibility. It's reputation, perception, narrative, and sustained positioning.",
+                philo_p1: "\"At Origen Media we believe advertising lost its way when it stopped listening.\"",
+                philo_p2: "We weren't born to chase artificial deadlines or reports that represent nobody. Here, things launch when they make sense. We measure our work by its human impact, not by empty reach. We analyze real conversations, contextual comments, stories from users who feel and question. <strong>We don't see 'engagement', we see people.</strong>",
+                philo_quote: "Origen Media exists to return to the essence: the reason why a brand was created, the problem it came to solve, and the solution that actually improves someone's life.",
+                philo_p3: "Returning to the origin is not going backwards. It's moving forward with awareness.",
+                harold_role: "Founder Origen Media · CEO & Director",
+                serv_tag: "Brand Architecture",
+                serv_title: "Our 4 Verticals",
+                serv_desc: "Each area fulfills a specific and complementary role. Together, they sustain your reputation long-term.",
+                prod_title: "Production",
+                prod_sub: "Audiovisual execution with a cinematic standard.",
+                prod_desc: "Internal and specialized structure. We don't rely exclusively on third parties; we control the creative vision and the operative execution of every visual project.",
+                prod_v_desc: "Premium production for digital distribution.",
+                prod_c_desc: "High-format cinematic production.",
+                prod_c_l2: "• Streaming (Netflix, Prime Video)",
+                prod_c_l3: "• Theatrical Release (Cinépolis, Cinemex)",
+                pub_title: "Advertising",
+                pub_sub: "Recognition and positioning.",
+                pub_desc: "The engine of recognition. It projects the brand into the public space, making it visible, desirable, and memorable.",
+                pub_l1: "Development of high-impact creative campaigns.",
+                pub_l2: "Integral creative direction.",
+                pub_l3: "ATL, BTL, and digital campaigns.",
+                pub_l4: "Ad placement strategies.",
+                pub_foot: "👉 We don't improvise creativity. We structure it.",
+                mkt_title: "Strategic Marketing",
+                mkt_sub: "Precision, segmentation, and adaptation.",
+                mkt_desc: "Deeply analytical. Understands who the product is for and what problem it solves. Connects with the right audience.",
+                mkt_l1: "Brand Strategy and audience definition.",
+                mkt_l2: "360° Campaigns and Influencer Strategy.",
+                mkt_l3: "Performance & Paid Media.",
+                mkt_l4: "Full funnel supervision.",
+                mkt_foot: "👉 Flexible, but always strategic.",
+                pr_tag: "Vertical 04: Public Relations",
+                pr_title: "Reputation and sustained relations.",
+                pr_desc: "It's not about planting an article, but sustaining a conversation. We build lasting ties with media, opinion leaders, and key audiences.",
+                pr_l1: "Media Relations & Earned Media Strategy.",
+                pr_l2: "Crisis management and institutional spokesmanship.",
+                pr_l3: "Launches, Media Tours, and Influencer Relations.",
+                pr_quote: "\"Public relations, when done right, don't seek exposure: they seek understanding. We work from empathy, criteria, and respect for people. That's what we stand for: communicating with sense and building reputation from truth.\"",
+                natalia_role: "Co-founder · VP & PR Director",
+                pr_k1: "Empathy",
+                pr_k2: "Listening",
+                pr_k3: "Bonding",
+                pr_k4: "Dialogue",
+                meth_tag: "Process",
+                meth_title: "Operative Model",
+                meth_desc: "Every project follows a structured model. The client doesn't hire a person, they hire a complete structure.",
+                s1_t: "Diagnostic", s1_d: "Deep strategic analysis.",
+                s2_t: "Concept", s2_d: "Narrative development.",
+                s3_t: "Verticals", s3_d: "Definition of active areas.",
+                s4_t: "Team", s4_d: "Hierarchical assignment.",
+                s5_t: "Planning", s5_d: "Operative structure.",
+                s6_t: "Execution", s6_d: "Production and supervision.",
+                s7_t: "Measurement", s7_d: "Results optimization.",
+                partners_tag: "Strategic production and distribution partners",
+                pack_tag: "Investment Architecture",
+                pack_title: "Scaling Plans",
+                pack1_sub: "Maintenance",
+                pack1_1: "<strong>12</strong> High-End Reels", pack1_2: "<strong>20</strong> Strategic Stories", pack1_3: "Editorial Calendar", pack1_4: "Scheduled Publishing",
+                pack_rec: "Recommended",
+                pack2_sub: "Aggressive Growth",
+                pack2_1: "<strong>25</strong> Reels (Cinema Look)", pack2_2: "<strong>40</strong> Stories (Daily Retention)", pack2_3: "Community Management", pack2_4: "Editorial Calendar", pack2_5: "Scheduled Publishing",
+                pack3_sub: "Market Authority",
+                pack3_1: "<strong>40</strong> Reels (Cinema Look)", pack3_2: "<strong>60</strong> Stories (Retention)", pack3_3: "<strong>2</strong> YouTube Videos", pack3_4: "Monthly Location Shooting", pack3_5: "PR Crisis Management", pack3_6: "Active Social Listening",
+                org_title: "Operative Structure",
+                org_desc: "Origen Media does not operate with minimal structures. Every area has hierarchical levels.",
+                org_hint: "Select a division to view architecture",
+                org_h_role: "Founder · CEO / CCO",
+                org_n_role: "Co-founder · VP & PR Director",
+                org_prod: "Production Division",
+                org_pub: "Advertising Division",
+                org_mkt: "Marketing Division",
+                org_pr: "PR Division",
+                org_btn: "View Hierarchy",
+                modal_arch: "Functional Architecture",
+                foot_role: "CEO & Creative Director",
+                foot_loc: "Mexico City",
+                foot_copy: "All rights reserved."
+            }
+        };
+
+        // --- DICCIONARIO DE DATOS DEL EQUIPO (i18n) ---
+        const teamData = {
+            es: {
+                harold: {
+                    name: "Harold Huerta", role: "Fundador · CEO / CCO", slogan: "El cliente invierte en arquitectura empresarial, no en improvisación.",
+                    tasks: ["<strong>Dirección Estratégica Global:</strong> Definición del rumbo y objetivos de cada marca.", "<strong>Supervisión Creativa:</strong> Aprobación final de campañas y conceptos.", "<strong>Desarrollo de Alianzas:</strong> Negociación y expansión con partners estratégicos.", "<strong>Control Ejecutivo:</strong> Garantía absoluta del estándar Origen Media en cada entrega."]
+                },
+                natalia: {
+                    name: "Natalia Guzmán", role: "Co-fundadora · VP & Dir. PR", slogan: "Las relaciones públicas como relaciones humanas.",
+                    tasks: ["<strong>Construcción de Reputación:</strong> Estrategia a largo plazo desde la esencia de la marca.", "<strong>Relaciones con Medios:</strong> Vinculación sólida con líderes de opinión y prensa.", "<strong>Gestión de Crisis:</strong> Protección de la coherencia institucional en todo momento.", "<strong>Posicionamiento:</strong> Traducir la causa de la marca en conversación pública."]
+                },
+                produccion: {
+                    name: "División Producción", role: "Área Operativa", slogan: "Controlamos la visión creativa y la ejecución final internamente.",
+                    tasks: ["<strong>Marketing Video Content:</strong> Contenido premium adaptado para distribución digital y redes sociales.", "<strong>Cinema Producer:</strong> Producción de gran formato para comerciales de TV, cines y plataformas de streaming.", "<strong>Postproducción Técnica:</strong> Edición, color grading avanzado, diseño sonoro inmersivo y distribución legal."]
+                },
+                publicidad: {
+                    name: "División Publicidad", role: "Área Estratégica", slogan: "Responsables directos del concepto, la ejecución visual y el reconocimiento público.",
+                    tasks: ["<strong>Desarrollo de Campañas:</strong> Creación de conceptos creativos de alto impacto para conectar con la audiencia.", "<strong>Dirección de Arte y Copywriting:</strong> Cuidado milimétrico del mensaje, el tono y la estética visual de la marca.", "<strong>Ejecución Integral:</strong> Materialización y despliegue de piezas para medios ATL, BTL y campañas digitales."]
+                },
+                marketing: {
+                    name: "División Marketing", role: "Área Analítica", slogan: "Precisión, segmentación y análisis de resultados para escalar tu marca.",
+                    tasks: ["<strong>Brand Strategy:</strong> Diseño de ecosistemas de marca y perfilación detallada de audiencias.", "<strong>Performance & Paid Media:</strong> Gestión inteligente del embudo de conversión y estrategias de pauta.", "<strong>Análisis de Datos:</strong> Soporte analítico, monitoreo continuo y reportería clara de resultados operativos."]
+                },
+                pr: {
+                    name: "División Relaciones P.", role: "Área de Reputación", slogan: "Posicionamiento editorial y presencia estratégica sostenida en el tiempo.",
+                    tasks: ["<strong>Earned Media:</strong> Estrategias orgánicas para asegurar alcance mediático y presencia en la conversación.", "<strong>Vocería Estratégica:</strong> Preparación, media training y gestión de los líderes institucionales de la marca.", "<strong>Influencer Relations:</strong> Creación de vínculos orgánicos y genuinos con creadores afines a los valores de la empresa."]
+                }
+            },
+            en: {
+                harold: {
+                    name: "Harold Huerta", role: "Founder · CEO / CCO", slogan: "The client invests in business architecture, not improvisation.",
+                    tasks: ["<strong>Global Strategic Direction:</strong> Defining the course and objectives for each brand.", "<strong>Creative Supervision:</strong> Final approval of campaigns and concepts.", "<strong>Alliance Development:</strong> Negotiation and expansion with strategic partners.", "<strong>Executive Control:</strong> Absolute guarantee of the Origen Media standard."]
+                },
+                natalia: {
+                    name: "Natalia Guzmán", role: "Co-founder · VP & PR Dir.", slogan: "Public relations as human relations.",
+                    tasks: ["<strong>Reputation Building:</strong> Long-term strategy built from the brand's essence.", "<strong>Media Relations:</strong> Solid connections with opinion leaders and the press.", "<strong>Crisis Management:</strong> Protecting institutional coherence at all times.", "<strong>Positioning:</strong> Translating the brand's cause into public conversation."]
+                },
+                produccion: {
+                    name: "Production Division", role: "Operative Area", slogan: "We control the creative vision and final execution internally.",
+                    tasks: ["<strong>Marketing Video Content:</strong> Premium content adapted for digital distribution and social media.", "<strong>Cinema Producer:</strong> High-format production for TV commercials, cinemas, and streaming platforms.", "<strong>Technical Post-production:</strong> Editing, advanced color grading, immersive sound design, and legal distribution."]
+                },
+                publicidad: {
+                    name: "Advertising Division", role: "Strategic Area", slogan: "Directly responsible for concept, visual execution, and public recognition.",
+                    tasks: ["<strong>Campaign Development:</strong> Creating high-impact creative concepts to connect with the audience.", "<strong>Art Direction & Copywriting:</strong> Millimetric care of the brand's message, tone, and visual aesthetics.", "<strong>Integral Execution:</strong> Materialization and deployment of pieces for ATL, BTL, and digital campaigns."]
+                },
+                marketing: {
+                    name: "Marketing Division", role: "Analytical Area", slogan: "Precision, segmentation, and results analysis to scale your brand.",
+                    tasks: ["<strong>Brand Strategy:</strong> Design of brand ecosystems and detailed audience profiling.", "<strong>Performance & Paid Media:</strong> Smart management of the conversion funnel and placement strategies.", "<strong>Data Analysis:</strong> Analytical support, continuous monitoring, and clear reporting of operative results."]
+                },
+                pr: {
+                    name: "PR Division", role: "Reputation Area", slogan: "Editorial positioning and sustained strategic presence over time.",
+                    tasks: ["<strong>Earned Media:</strong> Organic strategies to ensure media reach and presence in the conversation.", "<strong>Strategic Spokesmanship:</strong> Preparation, media training, and management of institutional brand leaders.", "<strong>Influencer Relations:</strong> Creation of organic and genuine ties with creators aligned with company values."]
+                }
+            }
+        };
+
+        // --- LÓGICA DE IDIOMAS ---
+        let currentLang = 'es'; // Default
+
+        function initLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang && userLang.toLowerCase().startsWith('en')) {
+                currentLang = 'en';
+            } else {
+                currentLang = 'es';
+            }
+            setLang(currentLang);
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            const btnEs = document.getElementById('btn-es');
+            const btnEn = document.getElementById('btn-en');
+            
+            if(lang === 'es') {
+                btnEs.className = "lang-btn lang-active px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest";
+                btnEn.className = "lang-btn lang-inactive px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest";
+            } else {
+                btnEs.className = "lang-btn lang-inactive px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest";
+                btnEn.className = "lang-btn lang-active px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest";
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+        }
+
+        // --- LÓGICA DE OVERLAY Y MODALES ---
+        function openTeamOverlay() {
+            const overlay = document.getElementById('teamOverlay');
+            overlay.classList.remove('translate-y-full');
+            overlay.classList.add('translate-y-0');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeTeamOverlay() {
+            const overlay = document.getElementById('teamOverlay');
+            overlay.classList.remove('translate-y-0');
+            overlay.classList.add('translate-y-full');
+            document.body.style.overflow = 'auto';
+        }
+
+        const modal = document.getElementById('teamModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalName = document.getElementById('modalName');
+        const modalRole = document.getElementById('modalRole');
+        const modalTasks = document.getElementById('modalTasks');
+        const modalSlogan = document.getElementById('modalSlogan');
+
+        function openModal(key) {
+            const member = teamData[currentLang][key];
+            if (!member) return;
+            
+            modalName.innerText = member.name;
+            modalRole.innerText = member.role;
+            modalSlogan.innerHTML = `👉 ${member.slogan}`;
+            modalTasks.innerHTML = '';
+            member.tasks.forEach(t => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${t}</span>`;
+                modalTasks.appendChild(li);
+            });
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initLanguage();
+        });
+
+    </script>
+</body>
+</html>
